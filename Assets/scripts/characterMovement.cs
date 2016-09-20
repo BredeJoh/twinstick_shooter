@@ -11,6 +11,8 @@ public class characterMovement : MonoBehaviour {
     public float force = 0.5f;
     public float maxSpeed = 1f;
     
+
+    
     
 
     
@@ -18,7 +20,10 @@ public class characterMovement : MonoBehaviour {
 	void Start () {
         body2D = GetComponent<Rigidbody2D>();
         
-	}
+        
+
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -29,9 +34,7 @@ public class characterMovement : MonoBehaviour {
         zRot = Mathf.Deg2Rad*transform.rotation.eulerAngles.z;
         var vel = body2D.velocity;
         speed = vel.magnitude;
-        print(speed);
-        print(body2D.velocity.x);
-        print(body2D.velocity.y);
+
         
       //  xRot = 
 	    
@@ -59,22 +62,24 @@ public class characterMovement : MonoBehaviour {
                 Instantiate(lazerprefab, transform.position, transform.rotation);
             }
         }
-        if (Input.GetKey(KeyCode.W)  && speed < maxSpeed)
+        float vertical = Input.GetAxis("vertical");
+        float horizontal = Input.GetAxis("horizontal");
+        if (vertical < -0.5f && speed < maxSpeed)
         {
            // body2D.velocity += new Vector2(0, force);
             body2D.AddForce(new Vector2 (0, force), ForceMode2D.Impulse);
         }
-        if (Input.GetKey(KeyCode.S) && speed < maxSpeed)
+        if (vertical > 0.5f && speed < maxSpeed)
         {
            // body2D.velocity += new Vector2(0, force*-1);
             body2D.AddForce(new Vector2(0, force*-1), ForceMode2D.Impulse);
         }
-        if (Input.GetKey(KeyCode.D)  && speed < maxSpeed)
+        if (horizontal > 0.5f && speed < maxSpeed)
         {
           //  body2D.velocity += new Vector2(force, 0);
             body2D.AddForce(new Vector2(force, 0), ForceMode2D.Impulse);
         }
-        if (Input.GetKey(KeyCode.A)  && speed < maxSpeed)
+        if (horizontal < -0.5f && speed < maxSpeed)
         {
           //  body2D.velocity += new Vector2(force*-1, 0);
             body2D.AddForce(new Vector2(force*-1, 0), ForceMode2D.Impulse);

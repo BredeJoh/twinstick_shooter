@@ -52,7 +52,7 @@ public class LoadingScript : MonoBehaviour {
 				Time.timeScale = 0;
 			}
 			//unpauses on another press, deactivates the pause menu and starts time again
-			else {
+			else if (pauseMenu.activeSelf){
 				pauseMenu.SetActive(false);
 				Time.timeScale = 1;
 			}

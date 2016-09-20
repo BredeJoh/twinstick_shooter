@@ -4,6 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class LoadingScript : MonoBehaviour {
 
+	//what will open when pressing 'esc' or 'pause', the player can quit from here
+	public GameObject pauseMenu;
+
+	//set this to whatever button code pausebutton on controller is
+	private string pauseButton = "pause";
+	//set this to whatever keycode that will be used for pausing/quitting
+	private string pauseKey = "escape";
 	//NOTE:
 	//For a scene to load, open the build menu and make sure the scenes you want to use are in
 	//the index there; they don't appear to be recognized if not.
@@ -15,9 +22,7 @@ public class LoadingScript : MonoBehaviour {
 	}
 
 	//same as above, but for strings, aka the name of the scene one would want to load. Should work
-	//as long as the spelling is 100% identical. Can use file paths too it seems (such as "Scenes/Level1")
-	//in place of just the name ("Level1"), in case you have a scene in a different folder (for sorting,
-	//I guess, haven't really texted this thoroughly)
+	//even if casing isn't the same. Can also be a file path (I think)
 	public void LoadLevelByName(string levelName) {
 		SceneManager.LoadScene(levelName);
 	}
@@ -29,6 +34,38 @@ public class LoadingScript : MonoBehaviour {
 		if(other.gameObject.name == "Player") {
 			LoadLevelByName(levelName);
 		}
+	}
+	//makes sure the pause menu isn't open by accident when starting the game
+	void Start() {
+		pauseMenu.SetActive(false);
+	}
+	void FixedUpdate() {
+		Pausing();
+	}
 
+	//pauses game and activates/deactivates the pause menu
+	void Pausing() {
+		if (Input.GetKeyDown(pauseKey) || Input.GetButtonDown(pauseButton)) {
+			//stops time and activates the loading menu uppon pausing
+			if (!pauseMenu.activeSelf) {
+				pauseMenu.SetActive(true);
+				Time.timeScale = 0;
+			}
+			//unpauses on another press, deactivates the pause menu and starts time again
+			else {
+				pauseMenu.SetActive(false);
+				Time.timeScale = 1;
+			}
+		}
+	}
+
+	//quit the game upon clicking a button that points to this
+	public void ClickToQuit() {
+		Application.Quit();
+	}
+	//quit the pause menu and start time upon clicking
+	public void ClickToCOntinue() {
+		pauseMenu.SetActive(false);
+		Time.timeScale = 1;
 	}
 }

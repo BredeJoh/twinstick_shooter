@@ -10,6 +10,7 @@ public class characterMovement : MonoBehaviour {
     private Rigidbody2D body2D;
     public float force = 0.5f;
     public float maxSpeed = 1f;
+    private bool isShooting = false;
     
 
     
@@ -61,9 +62,9 @@ public class characterMovement : MonoBehaviour {
         float rightHorizontal = Input.GetAxis("rightJoystickHorizontal");
         float abuttondown = Input.GetAxis("Fire1");
         print(abuttondown);
-        if (abuttondown != 0f && (rightHorizontal != 0f || rightvertical != 0f))
+        if (isShooting == false && abuttondown != 0f && (rightHorizontal != 0f || rightvertical != 0f))
         {
-                Instantiate(lazerprefab, transform.position, transform.rotation);
+            StartCoroutine(attackAndWait(0.25f));
         }
         
         
@@ -108,6 +109,14 @@ public class characterMovement : MonoBehaviour {
             Destroy(gameObject);
         }
     }
+    IEnumerator attackAndWait(float WaitTime)
+    {
+        isShooting = true;
+        Instantiate(lazerprefab, transform.position, transform.rotation);
+        yield return new WaitForSeconds(WaitTime);
+        isShooting = false;
+    }
+}
     /*float Rad2Deg(float radianIn)
     {
 
@@ -116,4 +125,4 @@ public class characterMovement : MonoBehaviour {
     {
 
     }*/
-}
+

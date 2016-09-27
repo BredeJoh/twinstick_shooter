@@ -16,7 +16,7 @@ public class virtualJoystick : MonoBehaviour {
         
         float rightvertical = Input.GetAxis("rightJoystickVertical");
         float rightHorizontal = Input.GetAxis("rightJoystickHorizontal");
-        gameObject.transform.position = body.transform.position + new Vector3(rightHorizontal, -rightvertical, 0f);
+        gameObject.transform.position = body.transform.position + new Vector3(rightHorizontal, -rightvertical, 0f)* 5f;
 
 
 	}

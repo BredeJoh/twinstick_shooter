@@ -12,18 +12,9 @@ public class characterMovement : MonoBehaviour {
     public float maxSpeed = 1f;
     private bool isShooting = false;
     
-
-    
-    
-
-    
 	// Use this for initialization
 	void Start () {
         body2D = GetComponent<Rigidbody2D>();
-        
-        
-
-
     }
 	
 	// Update is called once per frame
@@ -36,18 +27,9 @@ public class characterMovement : MonoBehaviour {
         var vel = body2D.velocity;
         speed = vel.magnitude;
 
-        
-      //  xRot = 
 	    
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-           // Vector3 move = new Vector3 (Mathf.Cos(zRot + (Mathf.PI / 2)), Mathf.Sin(zRot + (Mathf.PI / 2)), 0f);
 
-           // transform.position += move * speed;
-
-         
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
+       /* if (Input.GetKey(KeyCode.LeftArrow))
         {
 
             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle + rotationspeed));
@@ -55,7 +37,7 @@ public class characterMovement : MonoBehaviour {
         if (Input.GetKey(KeyCode.RightArrow))
         {
             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle - rotationspeed));
-        }
+        } */
 
 
         float rightvertical = Input.GetAxis("rightJoystickVertical");
@@ -72,22 +54,22 @@ public class characterMovement : MonoBehaviour {
         float horizontal = Input.GetAxis("horizontal");
         
 
-        if (vertical < -0.65f && speed < maxSpeed)
+        if (vertical < -0.2f && speed < maxSpeed)
         {
            // body2D.velocity += new Vector2(0, force);
             body2D.AddForce(new Vector2 (0, force), ForceMode2D.Impulse);
         }
-        if (vertical > 0.65f && speed < maxSpeed)
+        if (vertical > 0.2f && speed < maxSpeed)
         {
            // body2D.velocity += new Vector2(0, force*-1);
             body2D.AddForce(new Vector2(0, force*-1), ForceMode2D.Impulse);
         }
-        if (horizontal > 0.65f && speed < maxSpeed)
+        if (horizontal > 0.2f && speed < maxSpeed)
         {
           //  body2D.velocity += new Vector2(force, 0);
             body2D.AddForce(new Vector2(force, 0), ForceMode2D.Impulse);
         }
-        if (horizontal < -0.65f && speed < maxSpeed)
+        if (horizontal < -0.2f && speed < maxSpeed)
         {
           //  body2D.velocity += new Vector2(force*-1, 0);
             body2D.AddForce(new Vector2(force*-1, 0), ForceMode2D.Impulse);

@@ -56,30 +56,37 @@ public class characterMovement : MonoBehaviour {
             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle - rotationspeed));
         }
 
+
+        float rightvertical = Input.GetAxis("rightJoystickVertical");
+        float rightHorizontal = Input.GetAxis("rightJoystickHorizontal");
+        float abuttondown = Input.GetAxis("Fire1");
+        print(abuttondown);
+        if (abuttondown != 0f && (rightHorizontal != 0f || rightvertical != 0f))
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
                 Instantiate(lazerprefab, transform.position, transform.rotation);
-            }
         }
+        
+        
         float vertical = Input.GetAxis("vertical");
         float horizontal = Input.GetAxis("horizontal");
-        if (vertical < -0.5f && speed < maxSpeed)
+        
+
+        if (vertical < -0.65f && speed < maxSpeed)
         {
            // body2D.velocity += new Vector2(0, force);
             body2D.AddForce(new Vector2 (0, force), ForceMode2D.Impulse);
         }
-        if (vertical > 0.5f && speed < maxSpeed)
+        if (vertical > 0.65f && speed < maxSpeed)
         {
            // body2D.velocity += new Vector2(0, force*-1);
             body2D.AddForce(new Vector2(0, force*-1), ForceMode2D.Impulse);
         }
-        if (horizontal > 0.5f && speed < maxSpeed)
+        if (horizontal > 0.65f && speed < maxSpeed)
         {
           //  body2D.velocity += new Vector2(force, 0);
             body2D.AddForce(new Vector2(force, 0), ForceMode2D.Impulse);
         }
-        if (horizontal < -0.5f && speed < maxSpeed)
+        if (horizontal < -0.65f && speed < maxSpeed)
         {
           //  body2D.velocity += new Vector2(force*-1, 0);
             body2D.AddForce(new Vector2(force*-1, 0), ForceMode2D.Impulse);

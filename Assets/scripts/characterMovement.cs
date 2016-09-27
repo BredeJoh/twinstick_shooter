@@ -86,7 +86,7 @@ public class characterMovement : MonoBehaviour {
         {
             Health.playerHealth--;
         }
-        if (Health.playerHealth == 0)
+        if (Health.playerHealth <= 0)
         {
             Destroy(gameObject);
         }

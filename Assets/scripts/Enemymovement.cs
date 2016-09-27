@@ -6,12 +6,21 @@ public class Enemymovement : MonoBehaviour {
     public Transform enemylazerprefab;
     private int teller = 0;
     public float fart = 5.0f;
+	public Vector3 dist;
+	public float disty;
 	// Use this for initialization
 	void Start () {
 //        if (transform.position.y == -32)
 //        {
 //            speed = -1.0f;
 //        }
+	}
+	void distfinder() //finner distanse mellom spiller og enemy
+	{
+
+			dist = spiller.transform.position - transform.position;
+		print (dist.magnitude);
+			//disty = spiller.transform.position.y - transform.position.y;
 	}
 	void moveTowards()
 	{
@@ -29,7 +38,12 @@ public class Enemymovement : MonoBehaviour {
 	}
 	void FixedUpdate()
 	{
-		moveTowards();
+		distfinder ();
+		if (dist.magnitude >= 2)// && disty <= -5 || disty >= 5) //stopper å bevege seg mot spiller når den er innenfor en viss distanse
+		{
+			moveTowards();
+
+		} 
 	}
     void OnTriggerExit2D(Collider2D other)
     {

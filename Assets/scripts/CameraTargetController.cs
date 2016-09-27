@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraTargetController : MonoBehaviour {
 
-	private PlayerController player;
+	public GameObject player;
 
 	public float maxCameraDistance;
 
@@ -12,8 +12,7 @@ public class CameraTargetController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
-		player = FindObjectOfType<PlayerController>();
+
 
 	}
 	

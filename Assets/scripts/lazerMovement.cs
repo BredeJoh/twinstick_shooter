@@ -18,6 +18,8 @@ public class lazerMovement : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        StartCoroutine(Destroy(5f));
+
         var v3 = Input.mousePosition;
         v3.z = 10.0f;
         v3 = Camera.main.ScreenToWorldPoint(v3);
@@ -43,9 +45,7 @@ public class lazerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        
         //transform.position += move * speed;
-
         transform.position += joystickPosition.normalized * speed;
     }
 
@@ -56,24 +56,12 @@ public class lazerMovement : MonoBehaviour {
             Points.score++;
             Destroy(gameObject);
         }
-        if (other.gameObject.tag == "Boarder")
-        {
-            Destroy(gameObject);
-        }
+        
     }
-    void OnTriggerExit2D(Collider2D other)
+    IEnumerator Destroy(float WaitTime)
     {
-        if (other.gameObject.tag == "Boarder")
-        {
-            Destroy(gameObject);
-        }
+        yield return new WaitForSeconds(WaitTime);
+        Destroy(gameObject);
     }
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "Boarder")
-        {
-            print("hei");
-            Destroy(gameObject);
-        }
-    }
+
 }

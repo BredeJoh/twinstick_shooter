@@ -2,29 +2,48 @@
 using System.Collections;
 
 public class Enemymovement : MonoBehaviour {
-
+	public GameObject spiller;
     public Transform enemylazerprefab;
     private int teller = 0;
-    Vector3 move;
-    public float speed = 1.0f;
+    public float fart = 5.0f;
+	public Vector3 dist;
+	public float disty;
 	// Use this for initialization
 	void Start () {
-        if (transform.position.y == -32)
-        {
-            speed = -1.0f;
-        }
+//        if (transform.position.y == -32)
+//        {
+//            speed = -1.0f;
+//        }
+	}
+	void distfinder() //finner distanse mellom spiller og enemy
+	{
+
+			dist = spiller.transform.position - transform.position;
+		print (dist.magnitude);
+			//disty = spiller.transform.position.y - transform.position.y;
+	}
+	void moveTowards()
+	{
+		gameObject.transform.position = Vector2.MoveTowards (gameObject.transform.position, spiller.transform.position , Time.deltaTime * fart);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        move = new Vector3(0f, -0.1f, 0f);
-        transform.position += move * speed;
         teller++;
         if (teller == 120 && Health.playerHealth != 0)
         {
             Instantiate(enemylazerprefab, transform.position, transform.rotation);
             teller = 0;
         }
+	}
+	void FixedUpdate()
+	{
+		distfinder ();
+		if (dist.magnitude >= 2)// && disty <= -5 || disty >= 5) //stopper å bevege seg mot spiller når den er innenfor en viss distanse
+		{
+			moveTowards();
+
+		} 
 	}
     void OnTriggerExit2D(Collider2D other)
     {

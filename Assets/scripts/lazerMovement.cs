@@ -8,23 +8,30 @@ public class lazerMovement : MonoBehaviour {
     public float speed = 1.0f;
     public float zRot;
     Vector3 move;
-    GameObject body2D2;
+    
     public float speed2 = 0.1f;
     float angle;
-    Vector3 enemyToPlayer;
+
+    Vector3 joystickPosition;
+
 
 
     // Use this for initialization
     void Start () {
+        StartCoroutine(Destroy(5f));
+
         var v3 = Input.mousePosition;
         v3.z = 10.0f;
         v3 = Camera.main.ScreenToWorldPoint(v3);
 
-        enemyToPlayer = new Vector3(0f, 0f, 0f);
+        float rightvertical = Input.GetAxis("rightJoystickVertical");
+        float rightHorizontal = Input.GetAxis("rightJoystickHorizontal");
+
+        joystickPosition = new Vector3(rightHorizontal, -rightvertical, 0f);
+
         body2D = GameObject.FindGameObjectWithTag("Player");
-        enemyToPlayer = v3 - transform.position;
-        angle = Mathf.Sqrt((enemyToPlayer.x * enemyToPlayer.x) + (enemyToPlayer.y * enemyToPlayer.y));
-        angle = Mathf.Atan2(enemyToPlayer.x, enemyToPlayer.y);
+        angle = Mathf.Sqrt((joystickPosition.x * joystickPosition.x) + (joystickPosition.y * joystickPosition.y));
+        angle = Mathf.Atan2(joystickPosition.x, joystickPosition.y);
         if (angle < 0)
         {
             angle = Mathf.PI * 2 + angle;
@@ -38,9 +45,8 @@ public class lazerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        
         //transform.position += move * speed;
-        transform.position += enemyToPlayer.normalized * speed;
+        transform.position += joystickPosition.normalized * speed;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -50,12 +56,12 @@ public class lazerMovement : MonoBehaviour {
             Points.score++;
             Destroy(gameObject);
         }
+        
     }
-    void OnTriggerExit2D(Collider2D other)
+    IEnumerator Destroy(float WaitTime)
     {
-        if (other.gameObject.tag == "Respawn")
-        {
-            Destroy(gameObject);
-        }
+        yield return new WaitForSeconds(WaitTime);
+        Destroy(gameObject);
     }
+
 }

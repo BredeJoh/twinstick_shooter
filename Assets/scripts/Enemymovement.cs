@@ -3,9 +3,14 @@ using System.Collections;
 
 public class Enemymovement : MonoBehaviour {
 	private GameObject spiller;
+	private GameObject fiende;
     public Transform enemylazerprefab;
-    public float fart = 5.0f;
+	private float a;
+	private float b;
+	public float fart;
+	public float amp;
 	public Vector3 dist;
+	public Vector3 Rad;
 	public float disty;
     public int health = 3;
 	// Use this for initialization
@@ -15,14 +20,13 @@ public class Enemymovement : MonoBehaviour {
         //            speed = -1.0f;
         //        }
         StartCoroutine(Shoot(2f));
-        spiller = GameObject.FindGameObjectWithTag("Player"); 
+        spiller = GameObject.FindGameObjectWithTag("Player");
+		fiende = GameObject.FindGameObjectWithTag("Player"); 
 	}
 	void distfinder() //finner distanse mellom spiller og enemy
 	{
 
 			dist = spiller.transform.position - transform.position;
-		print (dist.magnitude);
-			//disty = spiller.transform.position.y - transform.position.y;
 	}
 	void moveTowards()
 	{
@@ -35,8 +39,19 @@ public class Enemymovement : MonoBehaviour {
 	}
 	void FixedUpdate()
 	{
+		a = 5f;
+		b = 1f;
+		amp = a* Mathf.Log(b*(dist.magnitude + 1f));
+
+		if (dist.magnitude >= 10.0f) {
+			fart = 5.0f;
+		}
+		else 
+		{
+			fart = 0.1f + amp;
+		}
 		distfinder ();
-		if (dist.magnitude >= 2)// && disty <= -5 || disty >= 5) //stopper å bevege seg mot spiller når den er innenfor en viss distanse
+		if (dist.magnitude >= 2) //stopper å bevege seg mot spiller når den er innenfor en viss distanse
 		{
 			moveTowards();
 

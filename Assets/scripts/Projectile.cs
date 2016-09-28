@@ -34,7 +34,9 @@ public class Projectile : MonoBehaviour {
 		float xVelocity = projectileSpeed * Mathf.Cos (angle);
 		float yVelocity = projectileSpeed * Mathf.Sin (angle);
 
-		GetComponent<Rigidbody2D> ().velocity = new Vector2 (xVelocity, yVelocity);
+		Vector3 playerVector = player.GetComponent<Rigidbody2D> ().velocity;
+
+		GetComponent<Rigidbody2D> ().velocity = new Vector2 (xVelocity + ( playerVector.x * 0.75f ), yVelocity + ( playerVector.y * 0.75f ));
 
 	}
 

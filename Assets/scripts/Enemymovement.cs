@@ -24,13 +24,10 @@ public class Enemymovement : MonoBehaviour {
         //        {
         //            speed = -1.0f;
         //        }
-<<<<<<< HEAD
 
 		sRendrer = GetComponent<SpriteRenderer> ();
 		r = Random.Range(2.0f, 6f);
-=======
 		r = Random.Range(3.0f, 7.0f);
->>>>>>> origin/master
         randomrotation = Random.Range(-10f, 10f);
         StartCoroutine(Shoot(r));
         spiller = GameObject.FindGameObjectWithTag("Player");

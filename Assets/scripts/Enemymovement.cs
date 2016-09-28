@@ -5,6 +5,7 @@ public class Enemymovement : MonoBehaviour {
 	private GameObject spiller;
 	private GameObject fiende;
 	public Rigidbody rb;
+	private SpriteRenderer sRendrer;
     public Transform enemylazerprefab;
 	private float a;
 	private float b;
@@ -23,11 +24,18 @@ public class Enemymovement : MonoBehaviour {
         //        {
         //            speed = -1.0f;
         //        }
+
+		sRendrer = GetComponent<SpriteRenderer> ();
 		r = Random.Range(2.0f, 6f);
         randomrotation = Random.Range(-10f, 10f);
         StartCoroutine(Shoot(2f));
         spiller = GameObject.FindGameObjectWithTag("Player");
 		fiende = GameObject.FindGameObjectWithTag("enemy");
+	}
+	IEnumerator flash(float time)
+	{
+		yield return new WaitForSeconds (time);
+		sRendrer.color = Color.red;
 	}
 	void distfinder() //finner distanse mellom spiller og enemy
 	{
@@ -97,6 +105,8 @@ public class Enemymovement : MonoBehaviour {
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "lazer")
         {
             health--;
+			sRendrer.color = Color.white;
+			StartCoroutine (flash (0.2f));
 
             if(health <= 0)
             {

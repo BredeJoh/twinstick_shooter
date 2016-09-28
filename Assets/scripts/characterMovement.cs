@@ -43,7 +43,7 @@ public class characterMovement : MonoBehaviour {
         float rightvertical = Input.GetAxis("rightJoystickVertical");
         float rightHorizontal = Input.GetAxis("rightJoystickHorizontal");
         float abuttondown = Input.GetAxis("Fire1");
-        print(abuttondown);
+        
         if (isShooting == false && abuttondown != 0f && (rightHorizontal != 0f || rightvertical != 0f))
         {
             StartCoroutine(attackAndWait(0.25f));

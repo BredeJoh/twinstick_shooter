@@ -4,7 +4,7 @@ using System.Collections;
 public class enemylazermovement : MonoBehaviour {
 
     GameObject body2D;
-    private float speed = 0.25f;
+    private float speed = 0.10f;
     float angle;
     Vector3 enemyToPlayer;
     

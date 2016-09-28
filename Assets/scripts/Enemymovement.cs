@@ -15,6 +15,7 @@ public class Enemymovement : MonoBehaviour {
 	public Vector3 Rad;
 	public float disty;
     public int health = 3;
+    float randomrotation;
 	// Use this for initialization
 	void Start () {
         //        if (transform.position.y == -32)
@@ -22,6 +23,7 @@ public class Enemymovement : MonoBehaviour {
         //            speed = -1.0f;
         //        }
 		r = Random.Range(2.0f, 6f);
+        randomrotation = Random.Range(-10f, 10f);
         StartCoroutine(Shoot(2f));
         spiller = GameObject.FindGameObjectWithTag("Player");
 	}
@@ -34,13 +36,21 @@ public class Enemymovement : MonoBehaviour {
 	{
 		gameObject.transform.position = Vector2.MoveTowards (gameObject.transform.position, spiller.transform.position , Time.deltaTime * fart);
 	}
+    void moveAway()
+    {
+        gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, spiller.transform.position, Time.deltaTime * -fart);
+    }
 	// Update is called once per frame
 	void Update () {
         
 	}
 	void FixedUpdate()
 	{
-		a = 3f;
+        if (randomrotation > 0)
+            transform.RotateAround(spiller.transform.position, Vector3.forward, 5 * r * Time.deltaTime);
+        else
+            transform.RotateAround(spiller.transform.position, Vector3.back, 5 * r * Time.deltaTime);
+        a = 3f;
 		b = 1f;
 		amp = (a* Mathf.Log(b*(dist.magnitude + 1f)))/2;
 
@@ -58,6 +68,10 @@ public class Enemymovement : MonoBehaviour {
 			moveTowards();
 
 		} 
+        else if (dist.magnitude < (r - 1f))
+        {
+            moveAway();
+        }
 
 	}
     void OnTriggerExit2D(Collider2D other)

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class MenuBehaviour : MonoBehaviour {
 
 	//change to whatever input will be used for pausing
@@ -11,6 +12,10 @@ public class MenuBehaviour : MonoBehaviour {
 	private string quitButton = "Quit";
 	//public gameobject for storing the pause menu
 	public GameObject pauseImage;
+
+	public GameObject newWaveText = "Wave " + Wave_spawn.waveNumber;
+
+
 
 	// Use this for initialization
 	void Start () {

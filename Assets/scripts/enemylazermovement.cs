@@ -12,6 +12,8 @@ public class enemylazermovement : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        StartCoroutine(Destroy(5f));
+
         enemyToPlayer = new Vector3(0f, 0f, 0f);
         body2D = GameObject.FindGameObjectWithTag("Player");
         enemyToPlayer = body2D.transform.position - transform.position;
@@ -45,5 +47,10 @@ public class enemylazermovement : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+    }
+    IEnumerator Destroy(float WaitTime)
+    {
+        yield return new WaitForSeconds(WaitTime);
+        Destroy(gameObject);
     }
 }

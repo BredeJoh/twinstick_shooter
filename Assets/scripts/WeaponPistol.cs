@@ -11,7 +11,6 @@ public class WeaponPistol : MonoBehaviour {
 	public GameObject ninjaStar;
 	public Transform firePoint;
 
-	public void fire ();
 
 	// Use this for initialization
 	void Start () {

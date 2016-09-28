@@ -17,6 +17,7 @@ public class GameOver : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		DeathCheck();
+		RetryLevel();
 	}
 
 	//stop the game and display a game over screen

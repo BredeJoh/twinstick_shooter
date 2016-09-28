@@ -10,6 +10,7 @@ public class Points : MonoBehaviour {
 	void Start () {
         txt = gameObject.GetComponent<Text>();
         txt.text = "Score : " + score;
+		score = 0;
     }
 	
 	// Update is called once per frame

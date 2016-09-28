@@ -10,6 +10,7 @@ public class Health : MonoBehaviour {
     void Start () {
         txt = gameObject.GetComponent<Text>();
         txt.text = "Health : " + playerHealth;
+		playerHealth = 5;
     }
 	
 	// Update is called once per frame

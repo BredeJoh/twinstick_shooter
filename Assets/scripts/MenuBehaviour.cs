@@ -13,7 +13,7 @@ public class MenuBehaviour : MonoBehaviour {
 	//public gameobject for storing the pause menu
 	public GameObject pauseImage;
 
-	public GameObject newWaveText = "Wave " + Wave_spawn.waveNumber;
+
 
 
 

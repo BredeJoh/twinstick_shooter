@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Enemymovement : MonoBehaviour {
 	private GameObject spiller;
+	private GameObject fiende;
 	public Rigidbody rb;
     public Transform enemylazerprefab;
 	private float a;
@@ -26,11 +27,13 @@ public class Enemymovement : MonoBehaviour {
         randomrotation = Random.Range(-10f, 10f);
         StartCoroutine(Shoot(2f));
         spiller = GameObject.FindGameObjectWithTag("Player");
+		fiende = GameObject.FindGameObjectWithTag("enemy");
 	}
 	void distfinder() //finner distanse mellom spiller og enemy
 	{
 
 			dist = spiller.transform.position - transform.position;
+			edist = fiende.transform.position - transform.position;
 	}
 	void moveTowards()
 	{
@@ -40,16 +43,24 @@ public class Enemymovement : MonoBehaviour {
     {
         gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, spiller.transform.position, Time.deltaTime * -fart);
     }
+//	void keepDistance()
+//	{
+//		gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, fiende.transform.position, Time.deltaTime * -200);
+//	}
+	void rotateAroundPlayer()
+	{
+		if (randomrotation > 0)
+			transform.RotateAround(spiller.transform.position, Vector3.forward, 5 * r * Time.deltaTime);
+		else
+			transform.RotateAround(spiller.transform.position, Vector3.back, 5 * r * Time.deltaTime);
+	}
 	// Update is called once per frame
 	void Update () {
         
 	}
 	void FixedUpdate()
 	{
-        if (randomrotation > 0)
-            transform.RotateAround(spiller.transform.position, Vector3.forward, 5 * r * Time.deltaTime);
-        else
-            transform.RotateAround(spiller.transform.position, Vector3.back, 5 * r * Time.deltaTime);
+		rotateAroundPlayer ();
         a = 3f;
 		b = 1f;
 		amp = (a* Mathf.Log(b*(dist.magnitude + 1f)))/2;
@@ -63,15 +74,15 @@ public class Enemymovement : MonoBehaviour {
 			fart = Mathf.Clamp (fart, 0.0f, 4f);
 		}
 		distfinder ();
-		if (dist.magnitude >= r) //stopper å bevege seg mot spiller når den er innenfor en viss distanse
-		{
-			moveTowards();
+		if (dist.magnitude >= r) { //stopper å bevege seg mot spiller når den er innenfor en viss distanse
+			moveTowards ();
 
-		} 
-        else if (dist.magnitude < (r - 1f))
-        {
-            moveAway();
-        }
+		} else if (dist.magnitude < (r - 1f)) {
+			moveAway ();
+} 
+		//else if (edist.magnitude < (1f)) {
+//			keepDistance ();
+//		}
 
 	}
     void OnTriggerExit2D(Collider2D other)

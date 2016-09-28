@@ -78,13 +78,21 @@ public class characterMovement : MonoBehaviour {
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "enemy")
-        {
-            Health.playerHealth--;
-        }
         if (other.gameObject.tag == "enemylazer")
         {
             Health.playerHealth--;
+        }
+        if (Health.playerHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "enemy")
+        {
+            Health.playerHealth--;
+            Destroy(other.gameObject);
         }
         if (Health.playerHealth <= 0)
         {

@@ -53,7 +53,7 @@ public class lazerMovement : MonoBehaviour {
     {
         if (other.gameObject.tag == "enemy")
         {
-            Points.score++;
+            
             Destroy(gameObject);
         }
         

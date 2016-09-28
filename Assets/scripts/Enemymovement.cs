@@ -2,18 +2,20 @@
 using System.Collections;
 
 public class Enemymovement : MonoBehaviour {
-	public GameObject spiller;
+	private GameObject spiller;
     public Transform enemylazerprefab;
     private int teller = 0;
     public float fart = 5.0f;
 	public Vector3 dist;
 	public float disty;
+    public int health = 3;
 	// Use this for initialization
 	void Start () {
-//        if (transform.position.y == -32)
-//        {
-//            speed = -1.0f;
-//        }
+        //        if (transform.position.y == -32)
+        //        {
+        //            speed = -1.0f;
+        //        }
+        spiller = GameObject.FindGameObjectWithTag("Player"); 
 	}
 	void distfinder() //finner distanse mellom spiller og enemy
 	{
@@ -56,7 +58,10 @@ public class Enemymovement : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "lazer")
         {
-            Destroy(gameObject);
+            health--;
+
+            if(health <= 0)
+                Destroy(gameObject);
         }
     }
 }

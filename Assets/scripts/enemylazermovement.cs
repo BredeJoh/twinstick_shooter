@@ -15,7 +15,7 @@ public class enemylazermovement : MonoBehaviour {
         StartCoroutine(Destroy(5f));
 
         enemyToPlayer = new Vector3(0f, 0f, 0f);
-        body2D = GameObject.FindGameObjectWithTag("Player");
+        body2D = GameObject.FindGameObjectWithTag("joystick");
         enemyToPlayer = body2D.transform.position - transform.position;
         angle = Mathf.Sqrt((enemyToPlayer.x * enemyToPlayer.x) + (enemyToPlayer.y * enemyToPlayer.y));
         angle = Mathf.Atan2(enemyToPlayer.x, enemyToPlayer.y);

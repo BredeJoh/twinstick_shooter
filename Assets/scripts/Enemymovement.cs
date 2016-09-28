@@ -4,7 +4,6 @@ using System.Collections;
 public class Enemymovement : MonoBehaviour {
 	private GameObject spiller;
     public Transform enemylazerprefab;
-    private int teller = 0;
     public float fart = 5.0f;
 	public Vector3 dist;
 	public float disty;
@@ -15,6 +14,7 @@ public class Enemymovement : MonoBehaviour {
         //        {
         //            speed = -1.0f;
         //        }
+        StartCoroutine(Shoot(2f));
         spiller = GameObject.FindGameObjectWithTag("Player"); 
 	}
 	void distfinder() //finner distanse mellom spiller og enemy
@@ -31,12 +31,7 @@ public class Enemymovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        teller++;
-        if (teller == 120 && Health.playerHealth != 0)
-        {
-            Instantiate(enemylazerprefab, transform.position, transform.rotation);
-            teller = 0;
-        }
+        
 	}
 	void FixedUpdate()
 	{
@@ -61,7 +56,19 @@ public class Enemymovement : MonoBehaviour {
             health--;
 
             if(health <= 0)
+            {
+                Points.score++;
                 Destroy(gameObject);
+            }
+            
         }
+    }
+    IEnumerator Shoot(float WaitTime)
+    {
+        if (Health.playerHealth != 0)
+            //Instantiate(enemylazerprefab, transform.position, transform.rotation);
+        yield return new WaitForSeconds(WaitTime);
+        StartCoroutine(Shoot(2f));
+        
     }
 }

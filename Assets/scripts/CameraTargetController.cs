@@ -10,9 +10,9 @@ public class CameraTargetController : MonoBehaviour {
 	Vector3 mousePos;
 	Vector3 worldPos;
 
-	bool inputType;
-	static bool JOYSTICK = true;
-	static bool MOUSE = false;
+	public bool inputType;
+	public static bool JOYSTICK = true;
+	public static bool MOUSE = false;
 
 	// Use this for initialization
 	void Start () {
@@ -25,7 +25,7 @@ public class CameraTargetController : MonoBehaviour {
 	void Update () {
 		
 		if (Input.GetKeyDown (KeyCode.Tab))
-			inputType = !inputType;
+			ToggleControlScheme ();
 		
 	}
 
@@ -64,6 +64,10 @@ public class CameraTargetController : MonoBehaviour {
 		}
 
 		Camera.main.transform.position = Vector3.Lerp (Camera.main.transform.position, transform.position, cameraSpeed * Time.deltaTime);
+	}
+
+	public void ToggleControlScheme(){
+		inputType = !inputType;
 	}
 		
 }

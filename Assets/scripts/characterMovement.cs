@@ -11,6 +11,8 @@ public class characterMovement : MonoBehaviour {
     public float force = 0.5f;
     public float maxSpeed = 1f;
     private bool isShooting = false;
+
+	public Weapon activeWeapon;
     
 	// Use this for initialization
 	void Start () {
@@ -44,10 +46,13 @@ public class characterMovement : MonoBehaviour {
         float rightHorizontal = Input.GetAxis("rightJoystickHorizontal");
         float abuttondown = Input.GetAxis("Fire1");
         
-        if (isShooting == false && abuttondown != 0f && (rightHorizontal != 0f || rightvertical != 0f))
+        /*if (isShooting == false && abuttondown != 0f && (rightHorizontal != 0f || rightvertical != 0f))
         {
             StartCoroutine(attackAndWait(0.25f));
-        }
+        }*/
+
+		if (Input.GetKey (KeyCode.Mouse0))
+			activeWeapon.fire ();
         
         
         float vertical = Input.GetAxis("vertical");

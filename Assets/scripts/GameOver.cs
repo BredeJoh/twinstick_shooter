@@ -6,7 +6,7 @@ public class GameOver : MonoBehaviour {
 
 	string levelToLoad = "main";
 	string pauseButton = "pause";
-	string quitButton = "quit";
+	string quitButton = "Quit";
 	public GameObject GameOverScreen;
 
 	// Use this for initialization

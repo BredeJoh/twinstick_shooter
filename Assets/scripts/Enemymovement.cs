@@ -24,11 +24,15 @@ public class Enemymovement : MonoBehaviour {
         //        {
         //            speed = -1.0f;
         //        }
+<<<<<<< HEAD
 
 		sRendrer = GetComponent<SpriteRenderer> ();
 		r = Random.Range(2.0f, 6f);
+=======
+		r = Random.Range(3.0f, 7.0f);
+>>>>>>> origin/master
         randomrotation = Random.Range(-10f, 10f);
-        StartCoroutine(Shoot(2f));
+        StartCoroutine(Shoot(r));
         spiller = GameObject.FindGameObjectWithTag("Player");
 		fiende = GameObject.FindGameObjectWithTag("enemy");
 	}
@@ -121,7 +125,7 @@ public class Enemymovement : MonoBehaviour {
         if (Health.playerHealth != 0)
         Instantiate(enemylazerprefab, transform.position, transform.rotation);
         yield return new WaitForSeconds(WaitTime);
-        StartCoroutine(Shoot(2f));
+        StartCoroutine(Shoot(r));
         
     }
 //	IEnumerator Shoot(float WaitTime)

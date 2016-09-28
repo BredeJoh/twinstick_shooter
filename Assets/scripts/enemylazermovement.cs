@@ -4,7 +4,7 @@ using System.Collections;
 public class enemylazermovement : MonoBehaviour {
 
     GameObject body2D;
-    public float speed = 0.1f;
+    private float speed = 0.25f;
     float angle;
     Vector3 enemyToPlayer;
     
@@ -15,7 +15,7 @@ public class enemylazermovement : MonoBehaviour {
         StartCoroutine(Destroy(5f));
 
         enemyToPlayer = new Vector3(0f, 0f, 0f);
-        body2D = GameObject.FindGameObjectWithTag("joystick");
+        body2D = GameObject.FindGameObjectWithTag("Player");
         enemyToPlayer = body2D.transform.position - transform.position;
         angle = Mathf.Sqrt((enemyToPlayer.x * enemyToPlayer.x) + (enemyToPlayer.y * enemyToPlayer.y));
         angle = Mathf.Atan2(enemyToPlayer.x, enemyToPlayer.y);

@@ -38,7 +38,7 @@ public class CharacterRotation : MonoBehaviour {
 			float joyVertical = Input.GetAxis ("rightJoystickVertical");
 			float joyHorizontal = Input.GetAxis ("rightJoystickHorizontal");
 
-			angle = Mathf.Atan2 (joyVertical, -joyHorizontal) * Mathf.Rad2Deg;
+			angle = Mathf.Atan2 (-joyVertical, joyHorizontal) * Mathf.Rad2Deg;
 
 		}
 

@@ -51,7 +51,7 @@ public class characterMovement : MonoBehaviour {
             StartCoroutine(attackAndWait(0.25f));
         }*/
 
-		if (Input.GetKey (KeyCode.Mouse0))
+		if (Input.GetKey (KeyCode.Mouse0) || Input.GetAxis("rightJoystickVertical") != 0f || Input.GetAxis("rightJoystickHorizontal") != 0f)
 			activeWeapon.fire ();
         
         

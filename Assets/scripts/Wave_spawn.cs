@@ -12,9 +12,9 @@ public class Wave_spawn : MonoBehaviour {
     public Camera cam;
     Vector3 spawnInViewPort;
     private bool canSpawn = false;
-    public int maxEnemies = 10;
+    public int maxEnemies = 20;
     private int currentEnemies = 0;
-    private int enemiesThisRound = 10;
+    private int enemiesThisRound;
     private int enemiesTeller;
     public GameObject enemyPrefab;
 
@@ -22,6 +22,7 @@ public class Wave_spawn : MonoBehaviour {
 	void Start () {
 
         waveNumber = 1;
+        enemiesThisRound = 10;
         StartCoroutine(spawn(2f));
 
 	}
@@ -57,11 +58,11 @@ public class Wave_spawn : MonoBehaviour {
     {
         waveNumber++;
         enemiesTeller = 0;
-        enemiesThisRound = 5 * waveNumber + 10;
+        enemiesThisRound = 5 * waveNumber + 5;
     }
     IEnumerator spawn(float WaitTime)
     {
-        if (canSpawn && currentEnemies < 10 && enemiesThisRound != enemiesTeller)
+        if (canSpawn && currentEnemies < maxEnemies && enemiesThisRound != enemiesTeller)
         {
             GameObject enemyspawning = Instantiate(enemyPrefab, spawnPoint, transform.rotation) as GameObject;
             enemyspawning.transform.parent = gameObject.transform;

@@ -10,6 +10,7 @@ public class characterMovement : MonoBehaviour {
     private Rigidbody2D body2D;
     public float force = 0.5f;
     public float maxSpeed = 1f;
+    public float drag;
     private bool isShooting = false;
 
 	public Weapon activeWeapon;
@@ -79,6 +80,12 @@ public class characterMovement : MonoBehaviour {
           //  body2D.velocity += new Vector2(force*-1, 0);
             body2D.AddForce(new Vector2(force*-1, 0), ForceMode2D.Impulse);
         }
+        if (Mathf.Abs(vertical) < 0.2f && Mathf.Abs(horizontal) < 0.2f)
+        {
+            GetComponent<Rigidbody2D>().drag = drag;
+        }
+        else
+            GetComponent<Rigidbody2D>().drag = 1f;
 
     }
     void OnTriggerEnter2D(Collider2D other)

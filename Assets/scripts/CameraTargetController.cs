@@ -6,6 +6,8 @@ public class CameraTargetController : MonoBehaviour {
 	public GameObject player;
 	public float maxCameraDistance;
 	public float cameraSpeed;
+    public Transform border1;
+    public Transform border2;
 
 	Vector3 mousePos;
 	Vector3 worldPos;
@@ -32,8 +34,8 @@ public class CameraTargetController : MonoBehaviour {
 	void FixedUpdate () {
 
 		Vector3 playerPos = player.transform.position;
-
-		if (inputType == MOUSE) {
+        
+        if (inputType == MOUSE) {
 
 			//Track Mouse Position
 			mousePos = Input.mousePosition;
@@ -62,8 +64,23 @@ public class CameraTargetController : MonoBehaviour {
 
 			transform.position = new Vector3 (playerPos.x + maxCameraDistance * joyHorizontal, playerPos.y + maxCameraDistance * -joyVertical, -10);
 		}
-
-		Camera.main.transform.position = Vector3.Lerp (Camera.main.transform.position, transform.position, cameraSpeed * Time.deltaTime);
+        if (transform.position.x < border1.position.x)
+        {
+            transform.position = new Vector3(border1.position.x, transform.position.y, transform.position.z);
+        }
+        if (transform.position.y > border1.position.y)
+        {
+            transform.position = new Vector3(transform.position.x, border1.transform.position.y, transform.position.z);
+        }
+        if (transform.position.x > border2.position.x)
+        {
+            transform.position = new Vector3(border2.position.x, transform.position.y, transform.position.z);
+        }
+        if (transform.position.y < border2.position.y)
+        {
+            transform.position = new Vector3(transform.position.x, border2.transform.position.y, transform.position.z);
+        }
+        Camera.main.transform.position = Vector3.Lerp (Camera.main.transform.position, transform.position, cameraSpeed * Time.deltaTime);
 	}
 
 	public void ToggleControlScheme(){

@@ -14,9 +14,13 @@ public class characterMovement : MonoBehaviour {
     private bool isShooting = false;
 
 	public Weapon activeWeapon;
-    
-	// Use this for initialization
-	void Start () {
+    public Weapon weapon1;
+    public Weapon weapon2;
+    public Weapon weapon3;
+
+
+    // Use this for initialization
+    void Start () {
         body2D = GetComponent<Rigidbody2D>();
     }
 	
@@ -30,17 +34,22 @@ public class characterMovement : MonoBehaviour {
         var vel = body2D.velocity;
         speed = vel.magnitude;
 
-	    
 
-       /* if (Input.GetKey(KeyCode.LeftArrow))
-        {
+        if (Input.GetButtonDown("Weapon1"))
+            activeWeapon = weapon1;
+        if (Input.GetButtonDown("Weapon2"))
+            activeWeapon = weapon2;
+        if (Input.GetButtonDown("Weapon3"))
+            activeWeapon = weapon3;
+        /* if (Input.GetKey(KeyCode.LeftArrow))
+         {
 
-            transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle + rotationspeed));
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle - rotationspeed));
-        } */
+             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle + rotationspeed));
+         }
+         if (Input.GetKey(KeyCode.RightArrow))
+         {
+             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle - rotationspeed));
+         } */
 
 
         float rightvertical = Input.GetAxis("rightJoystickVertical");

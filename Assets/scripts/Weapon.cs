@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour {
 	public float fireDelay;
 	public float projectileLifetime;
 	public float projectileSpeed;
+    public int damage;
 
 	public GameObject projectile;
 	public Transform firePoint;
@@ -21,7 +22,7 @@ public class Weapon : MonoBehaviour {
 
 		canFire = true;
 		player = FindObjectOfType<characterMovement> ();
-
+        projectile.GetComponent<Projectile>().damage = damage;
 	}
 
 	// Update is called once per frame
@@ -35,8 +36,8 @@ public class Weapon : MonoBehaviour {
 		newProjectile = Instantiate (projectile, firePoint.position, player.transform.rotation) as GameObject;
 		StartCoroutine (Cooldown (fireDelay));
 	}
-
-	IEnumerator Cooldown(float fireDelay)
+    
+    IEnumerator Cooldown(float fireDelay)
 	{
 		canFire = false;
 		yield return new WaitForSeconds(fireDelay);

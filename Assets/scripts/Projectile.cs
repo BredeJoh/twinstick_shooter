@@ -8,6 +8,8 @@ public class Projectile : MonoBehaviour {
 	private float spread;
 	private float projectileSpeed;
 	private float lifetime;
+    [HideInInspector]
+    public int damage;
 
 	// Use this for initialization
 	void Start () {
@@ -53,7 +55,7 @@ public class Projectile : MonoBehaviour {
 
 			Destroy(gameObject);
 		}
+        other.gameObject.GetComponent<Enemymovement>().health -= damage;
 
-	}
-
+    }
 }

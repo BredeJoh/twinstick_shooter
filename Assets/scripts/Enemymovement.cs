@@ -16,7 +16,7 @@ public class Enemymovement : MonoBehaviour {
 	public Vector3 edist;
 	public Vector3 Rad;
 	public float disty;
-    public int health = 3;
+    public int health = 100;
     float randomrotation;
 	// Use this for initialization
 	void Start () {
@@ -29,7 +29,7 @@ public class Enemymovement : MonoBehaviour {
 		r = Random.Range(2.0f, 6f);
 		r = Random.Range(3.0f, 7.0f);
         randomrotation = Random.Range(-10f, 10f);
-      //  StartCoroutine(Shoot(r));
+        StartCoroutine(Shoot(r));
         spiller = GameObject.FindGameObjectWithTag("Player");
 		fiende = GameObject.FindGameObjectWithTag("enemy");
 	}
@@ -117,16 +117,13 @@ public class Enemymovement : MonoBehaviour {
             
         }
     }
-//    IEnumerator Shoot(float WaitTime)
-//    {
-//        if (Health.playerHealth != 0)
-//        Instantiate(enemylazerprefab, transform.position, transform.rotation);
-//        yield return new WaitForSeconds(WaitTime);
-//        StartCoroutine(Shoot(r));
-//        
-//    }
-//	IEnumerator Shoot(float WaitTime)
-//	{
-//		
-//	}
+    IEnumerator Shoot(float WaitTime)
+    {
+        if (Health.playerHealth != 0)
+        Instantiate(enemylazerprefab, transform.position, transform.rotation);
+        yield return new WaitForSeconds(WaitTime);
+        StartCoroutine(Shoot(r));
+        
+    }
+	
 }

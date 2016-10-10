@@ -8,6 +8,7 @@ public class Wave_spawn : MonoBehaviour {
     private float yLimit = 7.5f;
     private float randomX;
     private float randomY;
+    private GameObject randomEnemy;
     Vector3 spawnPoint = Vector3.zero;
     public Camera cam;
     Vector3 spawnInViewPort;
@@ -17,6 +18,8 @@ public class Wave_spawn : MonoBehaviour {
     private int enemiesThisRound;
     private int enemiesTeller;
     public GameObject enemyPrefab;
+    public GameObject enemyPrefab2;
+    public GameObject enemyPrefab3;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +27,7 @@ public class Wave_spawn : MonoBehaviour {
         waveNumber = 1;
         enemiesThisRound = 10;
         StartCoroutine(spawn(2f));
+        randomEnemy = enemyPrefab;
 
 	}
 	
@@ -32,7 +36,12 @@ public class Wave_spawn : MonoBehaviour {
 
         randomX = Random.Range(-xLimit, xLimit);
         randomY = Random.Range(-yLimit, yLimit);
-        
+        if (randomEnemy == enemyPrefab)
+            randomEnemy = enemyPrefab2;
+        else if (randomEnemy == enemyPrefab2)
+            randomEnemy = enemyPrefab3;
+        else if (randomEnemy == enemyPrefab3)
+            randomEnemy = enemyPrefab;
 
         spawnInViewPort = cam.WorldToViewportPoint(new Vector3(randomX, randomY, 0f));
         
@@ -58,14 +67,24 @@ public class Wave_spawn : MonoBehaviour {
     {
         waveNumber++;
         enemiesTeller = 0;
+        maxEnemies = 10 + (waveNumber*2);
         enemiesThisRound = 5 * waveNumber + 5;
+        enemyPrefab.GetComponent<Enemymovement>().health += 10;
     }
     IEnumerator spawn(float WaitTime)
     {
         if (canSpawn && currentEnemies < maxEnemies && enemiesThisRound != enemiesTeller)
         {
-            GameObject enemyspawning = Instantiate(enemyPrefab, spawnPoint, transform.rotation) as GameObject;
-            enemyspawning.transform.parent = gameObject.transform;
+            if (waveNumber == 1)
+            {
+                GameObject enemyspawning = Instantiate(enemyPrefab, spawnPoint, transform.rotation) as GameObject;
+                enemyspawning.transform.parent = gameObject.transform;
+            }
+            else
+            {
+                GameObject enemyspawning = Instantiate(randomEnemy, spawnPoint, transform.rotation) as GameObject;
+                enemyspawning.transform.parent = gameObject.transform;
+            }
             enemiesTeller++;
             canSpawn = false;
         }

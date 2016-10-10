@@ -16,7 +16,10 @@ public class Enemymovement : MonoBehaviour {
 	public Vector3 edist;
 	public Vector3 Rad;
 	public float disty;
+
+    [HideInInspector]
     public int health = 100;
+
     float randomrotation;
 	// Use this for initialization
 	void Start () {
@@ -105,7 +108,7 @@ public class Enemymovement : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "lazer")
         {
-            health--;
+            
 			sRendrer.color = Color.white;
 			StartCoroutine (flash (0.2f));
 

@@ -52,10 +52,11 @@ public class Projectile : MonoBehaviour {
 	{
 		if (other.gameObject.tag == "enemy")
 		{
-
-			Destroy(gameObject);
+            other.gameObject.GetComponent<Enemymovement>().health -= damage;
+            Destroy(gameObject);
 		}
-        other.gameObject.GetComponent<Enemymovement>().health -= damage;
+        
+        
 
     }
 }

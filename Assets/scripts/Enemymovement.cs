@@ -120,6 +120,22 @@ public class Enemymovement : MonoBehaviour {
             
         }
     }
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "lazer")
+        {
+
+            sRendrer.color = Color.white;
+            StartCoroutine(flash(0.2f));
+
+            if (health <= 0)
+            {
+                Points.score++;
+                Destroy(gameObject);
+            }
+
+        }
+    }
     IEnumerator Shoot(float WaitTime)
     {
         if (Health.playerHealth != 0)

@@ -49,9 +49,11 @@ public class Projectile : MonoBehaviour {
 	}
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Player")
+        
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "lazer")
         {
             Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+            Physics2D.GetIgnoreLayerCollision(9, 10);
         }
         if (other.gameObject.tag == "Wall") { 
             foreach (ContactPoint2D contact in other.contacts)
@@ -62,6 +64,11 @@ public class Projectile : MonoBehaviour {
                 GetComponent<Rigidbody2D>().velocity = movement;
                 print(normal);
 
+            }
+            if (other.gameObject.tag == "enemy")
+            {
+                other.gameObject.GetComponent<Enemymovement>().health -= damage;
+                Destroy(gameObject);
             }
         }
     }

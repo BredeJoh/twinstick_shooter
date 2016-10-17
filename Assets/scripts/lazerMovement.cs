@@ -58,6 +58,14 @@ public class lazerMovement : MonoBehaviour {
         }
         
     }
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        foreach (ContactPoint2D contact in other.contacts)
+        {
+            Vector2 normal = contact.normal;
+            print(normal);
+        }
+    }
     IEnumerator Destroy(float WaitTime)
     {
         yield return new WaitForSeconds(WaitTime);

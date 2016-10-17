@@ -33,8 +33,7 @@ public class enemylazermovement : MonoBehaviour {
     {
         transform.position += enemyToPlayer.normalized * speed;
     }
-
-    void OnTriggerExit2D(Collider2D other)
+        void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.tag == "Respawn")
         {
@@ -43,7 +42,7 @@ public class enemylazermovement : MonoBehaviour {
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "Wall")
         {
             Destroy(gameObject);
         }

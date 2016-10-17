@@ -29,9 +29,9 @@ public class Projectile : MonoBehaviour {
 		aimPos.y -= playerPos.y;
 
 		float angle = Mathf.Atan2 (aimPos.y, aimPos.x);
-		Debug.Log (angle);
+		//Debug.Log (angle);
 		angle += Random.Range (-spread, spread);
-		Debug.Log (angle);
+		//Debug.Log (angle);
 
 		float xVelocity = projectileSpeed * Mathf.Cos (angle);
 		float yVelocity = projectileSpeed * Mathf.Sin (angle);
@@ -47,8 +47,25 @@ public class Projectile : MonoBehaviour {
 
 
 	}
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        }
+        if (other.gameObject.tag == "Wall") { 
+            foreach (ContactPoint2D contact in other.contacts)
+            {
+                Vector3 normal = contact.normal;
+                Vector3 movement = GetComponent<Rigidbody2D>().velocity;
+                movement = Vector3.Reflect(movement, normal);
+                GetComponent<Rigidbody2D>().velocity = movement;
+                print(normal);
 
-	void OnTriggerEnter2D(Collider2D other)
+            }
+        }
+    }
+    void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.gameObject.tag == "enemy")
 		{

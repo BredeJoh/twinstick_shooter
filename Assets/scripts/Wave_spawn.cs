@@ -69,7 +69,7 @@ public class Wave_spawn : MonoBehaviour {
         enemiesTeller = 0;
         maxEnemies = 10 + (waveNumber*2);
         enemiesThisRound = 5 * waveNumber + 5;
-        enemyPrefab.GetComponent<Enemymovement>().health += 10;
+        enemyPrefab.GetComponent<Enemymovement>().maxHealth += 10;
     }
     IEnumerator spawn(float WaitTime)
     {

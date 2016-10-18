@@ -16,10 +16,9 @@ public class Enemymovement : MonoBehaviour {
 	public Vector3 edist;
 	public Vector3 Rad;
 	public float disty;
-
+    public int maxHealth = 100;
     [HideInInspector]
-    public int health = 100;
-
+    public int health;
     float randomrotation;
 	// Use this for initialization
 	void Start () {
@@ -27,7 +26,7 @@ public class Enemymovement : MonoBehaviour {
         //        {
         //            speed = -1.0f;
         //        }
-
+        health = maxHealth;
 		sRendrer = GetComponent<SpriteRenderer> ();
 		r = Random.Range(2.0f, 6f);
 		r = Random.Range(3.0f, 7.0f);
@@ -67,12 +66,15 @@ public class Enemymovement : MonoBehaviour {
 			transform.RotateAround(spiller.transform.position, Vector3.back, 5 * r * Time.deltaTime);
 	}
 	// Update is called once per frame
-	void Update () {
-        
-	}
+
 	void FixedUpdate()
 	{
-		rotateAroundPlayer ();
+        if (health <= 0)
+        {
+            Points.score++;
+            Destroy(gameObject);
+        }
+        rotateAroundPlayer ();
         a = 3f;
 		b = 1f;
 		amp = (a* Mathf.Log(b*(dist.magnitude + 1f)))/2;
@@ -108,32 +110,16 @@ public class Enemymovement : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "lazer")
         {
-            
 			sRendrer.color = Color.white;
-			StartCoroutine (flash (0.2f));
-
-            if(health <= 0)
-            {
-                Points.score++;
-                Destroy(gameObject);
-            }
-            
+			StartCoroutine (flash (0.2f));         
         }
     }
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Player" || other.gameObject.tag == "lazer")
         {
-
             sRendrer.color = Color.white;
             StartCoroutine(flash(0.2f));
-
-            if (health <= 0)
-            {
-                Points.score++;
-                Destroy(gameObject);
-            }
-
         }
     }
     IEnumerator Shoot(float WaitTime)

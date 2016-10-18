@@ -11,11 +11,14 @@ public class Projectile : MonoBehaviour {
     [HideInInspector]
     public int damage;
 
-	// Use this for initialization
-	void Start () {
+    Vector3 playerVector;
+    Vector3 velocity;
+
+    // Use this for initialization
+    void Start () {
 
 		player = FindObjectOfType<characterMovement> ();
-
+        
 		spread = player.activeWeapon.spread / 100;
 		projectileSpeed = player.activeWeapon.projectileSpeed;
 		lifetime = player.activeWeapon.projectileLifetime;
@@ -36,40 +39,50 @@ public class Projectile : MonoBehaviour {
 		float xVelocity = projectileSpeed * Mathf.Cos (angle);
 		float yVelocity = projectileSpeed * Mathf.Sin (angle);
 
-		Vector3 playerVector = player.GetComponent<Rigidbody2D> ().velocity;
+		playerVector = player.GetComponent<Rigidbody2D> ().velocity;
 
 		GetComponent<Rigidbody2D> ().velocity = new Vector2 (xVelocity + ( playerVector.x * 0.75f ), yVelocity + ( playerVector.y * 0.75f ));
 
-	}
+        velocity = GetComponent<Rigidbody2D>().velocity;
+
+    }
 
 	// Update is called once per frame
 	void Update () {
 
-
-	}
+        GetComponent<Rigidbody2D>().velocity = velocity;
+        
+    }
     void OnCollisionEnter2D(Collision2D other)
     {
-        
-        if (other.gameObject.tag == "Player" || other.gameObject.tag == "lazer")
+        //Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        //.GetIgnoreLayerCollision(9, 9);
+        if (other.gameObject.tag == "Player")
         {
             Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
             Physics2D.GetIgnoreLayerCollision(9, 10);
+        }
+        if (other.gameObject.tag == "Boarder")
+            Destroy(gameObject);
+        if (other.gameObject.tag == "lazer")
+        {
+            Physics2D.GetIgnoreLayerCollision(9, 9);
+            Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
         if (other.gameObject.tag == "Wall") { 
             foreach (ContactPoint2D contact in other.contacts)
             {
                 Vector3 normal = contact.normal;
                 Vector3 movement = GetComponent<Rigidbody2D>().velocity;
-                movement = Vector3.Reflect(movement, normal);
-                GetComponent<Rigidbody2D>().velocity = movement;
-                print(normal);
-
-            }
-            if (other.gameObject.tag == "enemy")
-            {
-                other.gameObject.GetComponent<Enemymovement>().health -= damage;
-                Destroy(gameObject);
-            }
+                velocity = Vector3.Reflect(velocity, normal);
+               // GetComponent<Rigidbody2D>().velocity = movement;
+            }      
+        }
+        if (other.gameObject.tag == "enemy")
+        {
+            other.gameObject.GetComponent<Enemymovement>().health -= damage;
+            if(player.activeWeapon.name != "Rifle")
+            Destroy(gameObject);
         }
     }
     void OnTriggerEnter2D(Collider2D other)

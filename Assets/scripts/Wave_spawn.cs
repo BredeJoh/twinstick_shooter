@@ -28,8 +28,10 @@ public class Wave_spawn : MonoBehaviour {
         enemiesThisRound = 10;
         StartCoroutine(spawn(2f));
         randomEnemy = enemyPrefab;
+        enemyPrefab.GetComponent<Enemymovement>().maxHealth = 100;
+        enemyPrefab2.GetComponent<KamikazeScript>().maxHealth = 100;
 
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -70,6 +72,7 @@ public class Wave_spawn : MonoBehaviour {
         maxEnemies = 10 + (waveNumber*2);
         enemiesThisRound = 5 * waveNumber + 5;
         enemyPrefab.GetComponent<Enemymovement>().maxHealth += 10;
+        enemyPrefab2.GetComponent<KamikazeScript>().maxHealth += 10;
     }
     IEnumerator spawn(float WaitTime)
     {

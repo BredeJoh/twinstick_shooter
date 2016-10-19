@@ -18,15 +18,17 @@ public class KamikazeScript : MonoBehaviour {
 	public Vector3 edist;
 	public Vector3 Rad;
 	public float disty;
-	public int health = 3;
+    [HideInInspector]
+    public int health;
+    public int maxHealth = 100;
 	float randomrotation;
 	// Use this for initialization
 	void Start () {
-		//        if (transform.position.y == -32)
-		//        {
-		//            speed = -1.0f;
-		//        }
-
+        //        if (transform.position.y == -32)
+        //        {
+        //            speed = -1.0f;
+        //        }
+        health = maxHealth;
 		sRendrer = GetComponent<SpriteRenderer> ();
 		r = Random.Range(4.0f, 8f);
 		rs = Random.Range(3.0f, 7.0f);
@@ -68,20 +70,25 @@ public class KamikazeScript : MonoBehaviour {
 	}
 	void FixedUpdate()
 	{
-		a = 4f;
+        if (health <= 0)
+        {
+            Points.score++;
+            Destroy(gameObject);
+        }
+        a = 4f;
 		b = 2f;
 		amp = (a * Mathf.Log (b * (dist.magnitude + 1f)));
 		distfinder ();
 		if (dist.magnitude >= 10.0f) {
 			fart = 2.0f;
 		}
-		if (health >= 3) {
+		if (health >= (int)maxHealth/2) {
 			rotateAroundPlayer ();
 			if (dist.magnitude < (r - 1f) && health >= 2) {
 				moveAway ();
 			}
 		}
-		if (health <= 2) 
+		if (health <= (int)maxHealth/2) 
 		{
 			r = 0;
 		}
@@ -103,23 +110,23 @@ public class KamikazeScript : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
-	void OnTriggerEnter2D(Collider2D other)
-	{
-		if (other.gameObject.tag == "Player" || other.gameObject.tag == "lazer")
-		{
-			health--;
-			sRendrer.color = Color.white;
-			StartCoroutine (flash (0.2f));
-
-			if(health <= 0)
-			{
-				Points.score++;
-				Destroy(gameObject);
-			}
-
-		}
-	}
-	IEnumerator Shoot(float WaitTime)
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "lazer")
+        {
+            sRendrer.color = Color.white;
+            StartCoroutine(flash(0.2f));
+        }
+    }
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Player" || other.gameObject.tag == "lazer")
+        {
+            sRendrer.color = Color.white;
+            StartCoroutine(flash(0.2f));
+        }
+    }
+    IEnumerator Shoot(float WaitTime)
 	{
 		if (Health.playerHealth != 0)
 			Instantiate(enemylazerprefab, transform.position, transform.rotation);

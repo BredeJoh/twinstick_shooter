@@ -40,11 +40,12 @@ public class Enemymovement : MonoBehaviour {
 		yield return new WaitForSeconds (time);
 		sRendrer.color = Color.red;
 	}
-	void distfinder() //finner distanse mellom spiller og enemy
-	{
-
-			dist = spiller.transform.position - transform.position;
-			edist = fiende.transform.position - transform.position;
+    void distfinder() //finner distanse mellom spiller og enemy
+    {
+        if (gameObject == null) { 
+            dist = spiller.transform.position - transform.position;
+        edist = fiende.transform.position - transform.position;
+    }
 	}
 	void moveTowards()
 	{

@@ -28,6 +28,15 @@ public class CameraTargetController : MonoBehaviour {
 		
 		if (Input.GetKeyDown (KeyCode.Tab))
 			ToggleControlScheme ();
+
+		if (Input.GetAxis ("rightJoystickVertical") != 0 || Input.GetAxis ("rightJoystickHorizontal") != 0)
+			inputType = JOYSTICK;
+
+		if (Input.GetMouseButton (0) || Input.GetMouseButton (1) || Input.GetMouseButton (2))
+			inputType = MOUSE;
+
+		if (Input.GetAxisRaw ("Mouse X") != 0f || Input.GetAxisRaw ("Mouse Y") != 0f)
+			inputType = MOUSE;
 		
 	}
 

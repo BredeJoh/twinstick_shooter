@@ -80,7 +80,10 @@ public class Projectile : MonoBehaviour {
         }
         if (other.gameObject.tag == "enemy")
         {
-            other.gameObject.GetComponent<Enemymovement>().health -= damage;
+			if (other.gameObject.GetComponent<Enemymovement> () != null)
+				other.gameObject.GetComponent<Enemymovement> ().health -= damage;
+			else
+				other.gameObject.GetComponent<KamikazeScript> ().health -= damage;
             if(player.activeWeapon.name != "Rifle")
             Destroy(gameObject);
         }
@@ -89,7 +92,10 @@ public class Projectile : MonoBehaviour {
 	{
 		if (other.gameObject.tag == "enemy")
 		{
-            other.gameObject.GetComponent<Enemymovement>().health -= damage;
+			if (other.gameObject.GetComponent<Enemymovement> () != null)
+				other.gameObject.GetComponent<Enemymovement> ().health -= damage;
+			else
+				other.gameObject.GetComponent<KamikazeScript> ().health -= damage;
             Destroy(gameObject);
 		}
         

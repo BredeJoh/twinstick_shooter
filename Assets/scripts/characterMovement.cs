@@ -12,6 +12,7 @@ public class characterMovement : MonoBehaviour {
     public float maxSpeed = 1f;
     public float drag;
     private bool isShooting = false;
+	private bool autoFire = false;
 
 	public Weapon activeWeapon;
     public Weapon weapon1;
@@ -60,8 +61,12 @@ public class characterMovement : MonoBehaviour {
         {
             StartCoroutine(attackAndWait(0.25f));
         }*/
+		if (Input.GetKeyDown (KeyCode.Mouse1))
+			autoFire = !autoFire;
 
-		if (Input.GetKey (KeyCode.Mouse0) || Input.GetAxis("rightJoystickVertical") != 0f || Input.GetAxis("rightJoystickHorizontal") != 0f)
+		if (autoFire)
+			activeWeapon.fire ();
+		else if (Input.GetKey (KeyCode.Mouse0) || Input.GetAxis("rightJoystickVertical") != 0f || Input.GetAxis("rightJoystickHorizontal") != 0f)
 			activeWeapon.fire ();
         
         
